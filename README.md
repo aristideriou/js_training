@@ -172,22 +172,27 @@ myOtherArray[3]
 var joinedArray = myOtherArray.join('|');
 // 'true|32.4|1223|bbbb'
 
+
+
 var product = '111';
 console.log('variable dèv'+product);
 
-//Dans GTM
-(function(){ 
-    var product = 'Barry';
-    console.log('variable GTM'+product);
-})();
+myArray.push('newElement')
+
+Exercice : corriger 
+
+```javascript
+var myArray = ['Pierre','Paul]
 ```
+
+Exercice
 
 ## Partie 4 : Les boucles for & cie
 
 ## Les objets 
 
 ```javascript
-//Je veux stocker les infos sur un client
+//Je veux stocker les infos sur un client?
 
 var customerArray = ['Dupont','Jean',25,true];
 //Pas pratique pour stocker des valeurs typées
@@ -198,12 +203,25 @@ var customerObject = {
 	'age' : 25,
 	'is Client' : true
 }
+//Un "objet" est un ensemble de clés / valeurs, sans notion d'ordre
 
 Array.isArray(customerObject)
 //Renvoie "false"
 
 customerObject["first name"]
 //Renvoie "Jean"
+
+customerObject['first name'] = 'Émilie';
+//Pour changer à la volée une valeur
+
+customerObject['salary' : 3000];
+//Pour ajouter une paire clé / valeur
+
+//parser un objet
+for (var key in customerObject) {
+  console.log('clé : '+key+'  value : '+ customerObject[key]);
+}
+
 ```
 
 ## Partie 5 : les fonctions
@@ -215,13 +233,14 @@ L'intérêt des fonctions : faire du code réutilisable
 function getRandom(){
 	console.log(Math.random());
 }
+//On parle aussi de méthode (équivalent)
 
 //Syntaxe basique d'une fonction - Invocation
 getRandom();
 
 //Fonction avec un argument
 function getRandomUpToX(max){
-	//max => Argument
+	//max => Argument de la fonction
 	console.log(Math.random()*max);
 }
 ```
@@ -229,18 +248,31 @@ function getRandomUpToX(max){
 ## Partie 6 : Les dates
 
 ```javascript
-//Timestamp vs type date
+//Générer un timestamp
+var unixTimestamp = Date.now();
+//Nombre de millisecondes écoulées depuis le 1er janvier 1970
+
+//Générer une date 
+var date2 = new Date('December 17, 1995 03:24:00');
+
+typeof date2
+//Renvoie "object"
+
 ```
+
+Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ, et donne le nombre de jours depuis
 
 ## Partie 7 : La manipulation du DOM
 
 Rappel : les sélecteurs CSS
 
-p => Toutes les balises <p>
-.red => Toutes les balises de classe 'red'
-#product-image => Toutes les balises d'ID product-image
-ul .active => Sélecteur descendant direct
-ul > .active => Sélecteur descendant global
+```css
+p /*=> Toutes les balises <p>*/
+.red /*=> Toutes les balises de classe 'red'*/
+#product-image /*=> Toutes les balises d'ID product-image*/
+ul .active /*=> Sélecteur descendant direct*/
+ul > .active /*=> Sélecteur descendant global*/
+```
 
 ```javascript
 document.querySelector('#newsletter').addEventListener('focus',function(){
@@ -250,16 +282,38 @@ document.querySelector('#newsletter').addEventListener('focus',function(){
 		'formName' : 'newsletter'
 	})
 })
+
+//Astuce : récupérer un sélecteur CSS depuis l'inspecteur Chrome
+
 ```
 
 ## Partie 8 : Les cookies et le local storage
 
 ```javascript
-//Lire un cookie
-
 //Ecrire un cookie
+document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+//Bon exercice pour chainer les conditions
 
-//Lire un local / session storage
+//Lire un cookie
+document.cookie
+//Renvoie une string
 
-//Ecrire un local storage
+// Enregistrer des données dans sessionStorage
+sessionStorage.setItem('idClient', '123456789');
+
+// Récupérer des données depuis sessionStorage
+var monID = sessionStorage.getItem('idClient');
+
+// Supprimer des données de sessionStorage
+sessionStorage.removeItem('idClient');
 ```
+
+Le local storage est plus moderne, mais pas compatible avec de vieux navigateurs, et sans possibilité de contrôler finement l'expiration, et le domaine
+
+Exercice niveau 1 : créer un cookie GA 'propre' (GA1.2.1232667359.1603816516) avec un random number, le timestamp courant, et une date d'expiration à 13 mois
+
+Exercice niveau 2 : faire une méthode qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen
+
+## Partie 9 : Le bilan
+
+A comprendre avant de passer sur GTM
