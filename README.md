@@ -1,5 +1,18 @@
 # Javascript pour l'analytics et le tag management
 
+## Introduction : le tooling
+
+Installer un bon éditeur de texte : [Sublime Text](https://www.sublimetext.com/) (simple et efficace), ou [VSCode](https://code.visualstudio.com/) (plus complexe, mais aussi très complet).
+
+Télécharger [l'archive avec le template de base](https://github.com/aristideriou/aristideriou.github.io/tree/master/js_demo_page) et le modifier tout au long de la formation.
+
+Travailler en local
+
+Vos 3 meilleurs amis : 
+- La console de Chrome pour débugger
+- La doc (W3Schools, MDN)
+- Les forums (StackOverflow)
+
 ## Partie 1 : Les variables
 
 ```javascript
@@ -10,6 +23,9 @@ var myString = 'Hello world';
 console.log(myString);
 
 var myInteger = 12;
+
+var userValue = prompt('Saisir un nombre entre 1 et 10');
+//Technique rudimentaire pour créer un peu d'interaction
 
 console.log('On ajoute 2 à notre Integer : ' + myInteger+2);
 
@@ -27,10 +43,13 @@ sur plusieurs lignes
 */
 
 var priceError = '32';
-var myRoundedPrice = parseInt(priceError,10);
+var myIntPrice = parseInt(priceError,10);
 
 var priceError2 = '32.12' 
-var myRoundedPrice = parseFloat(priceError2,10);
+var myFloatPrice = parseFloat(priceError2,10);
+
+var accuratePrice = 452.123485654;
+var myRoundedPrice = Math.round(accuratePrice);
 
 var priceToStringigy = 321;
 var stringifiedPrice = priceToStringigy.toString();
@@ -42,7 +61,7 @@ var stringifiedPrice = priceToStringigy.toString();
 
 Niveau facile : Déclarer une variable avec son nom, une avec son prénom, puis une troisième qui les concatène, en affichant un message "Bonjour Nom, Prénom!". Afficher cette dernière variable dans la console
 
-Niveau difficile : Créer une variable de type string, et la transformer en Booléen. Contrainte : le booléen doit être à false.
+Niveau difficile : Demander via un prompt l'âge de l'utilisateur en années, et afficher un message dans la console avec son âge (approximatif) en jours
 
 ## Partie 2 : Les conditions
 
@@ -129,11 +148,11 @@ switch(product){
 }
 ```
 
-Intermède : les URLs : 
+Intermède : manipulation des URLs 
 
 ```javascript
-var monURL = window.location.href;
-//Un doute? Taper window.location. dans la console Chrome
+var myURL = window.location.href;
+//Un doute? Taper window.location. dans la console Chrome pour voir toutes les infos que l'on peut récupérer
 ```
 
 ### Exercices partie 2
@@ -153,7 +172,6 @@ Niveau difficile : même exercice, mais en plus, l'URI doit *contenir* "product"
 ```javascript
 var myArray = ['kkjkj'],
 	myOtherArray = ['aaa','bbbb',1223,32.4,true];
-//Notation raccourcie pour définir plusieurs variables à la suite
 
 myArray.push(myOtherArray);
 
@@ -172,7 +190,10 @@ myOtherArray[3]
 var joinedArray = myOtherArray.join('|');
 // 'true|32.4|1223|bbbb'
 
+//Transformer une string en tableau
+var completeURL = document.location.href;
 
+var ArrayURL = completeURL.split('/');
 
 var product = '111';
 console.log('variable dèv'+product);
@@ -185,11 +206,19 @@ Exercice : corriger
 var myArray = ['Pierre','Paul]
 ```
 
-Exercice
+Exercice niveau difficile : extraire uniquement 
 
-## Partie 4 : Les boucles for & cie
+## Partie 4 : La boucle for
 
-## Les objets 
+```javascript
+var cars = ['Renault','Nissan','Ford'];
+
+for (var i = 0; i < cars.length; i++) {
+  console.log(cars[i]);
+}
+```
+
+## Partie 5 : Les objets 
 
 ```javascript
 //Je veux stocker les infos sur un client?
@@ -221,10 +250,9 @@ customerObject['salary' : 3000];
 for (var key in customerObject) {
   console.log('clé : '+key+'  value : '+ customerObject[key]);
 }
-
 ```
 
-## Partie 5 : les fonctions
+## Partie 6 : les fonctions
 
 L'intérêt des fonctions : faire du code réutilisable
 
@@ -245,7 +273,7 @@ function getRandomUpToX(max){
 }
 ```
 
-## Partie 6 : Les dates
+## Partie 7 : Les dates
 
 ```javascript
 //Générer un timestamp
@@ -257,12 +285,12 @@ var date2 = new Date('December 17, 1995 03:24:00');
 
 typeof date2
 //Renvoie "object"
-
 ```
 
-Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ, et donne le nombre de jours depuis
+Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ (prompt), et donne le nombre de jours depuis.
+Bonus : vérifier l'intégrité de la date envoyée par l'utilisateur (le format doit être correct)
 
-## Partie 7 : La manipulation du DOM
+## Partie 8 : La manipulation du DOM et les events listeners
 
 Rappel : les sélecteurs CSS
 
@@ -275,19 +303,33 @@ ul > .active /*=> Sélecteur descendant global*/
 ```
 
 ```javascript
-document.querySelector('#newsletter').addEventListener('focus',function(){
+var selector1 = document.querySelector('h1');
+
+var selector2 = document.querySelectorAll('h3');
+
+var selector3 = document.getElementById
+```
+
+Niveau 2 : modifier le DOM
+
+Astuce : récupérer un sélecteur CSS depuis l'inspecteur Chrome
+
+```javascript
+//On travaille à l'envers : on commence par créer la fonction que l'on va "attacher" à l'événement
+
+function pushNLEventToDL (){
 	console.log('Le formulaire a le focus');
 	dataLayer.push({
 		'event' : 'formFocus',
 		'formName' : 'newsletter'
 	})
-})
+}
+//On pense bien à tester la fonction "à blanc"
 
-//Astuce : récupérer un sélecteur CSS depuis l'inspecteur Chrome
-
+document.querySelector('#newsletter').addEventListener('click',pushNLEventToDL());
 ```
 
-## Partie 8 : Les cookies et le local storage
+## Partie 9 : Les cookies et le local storage
 
 ```javascript
 //Ecrire un cookie
@@ -314,6 +356,6 @@ Exercice niveau 1 : créer un cookie GA 'propre' (GA1.2.1232667359.1603816516) a
 
 Exercice niveau 2 : faire une méthode qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen
 
-## Partie 9 : Le bilan
+## Partie 10 : Le bilan
 
 A comprendre avant de passer sur GTM
