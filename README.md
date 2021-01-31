@@ -213,18 +213,39 @@ Exercice niveau difficile : extraire uniquement
 
 ## Partie 4 : La boucle for
 
+C'est la boucle de base qui permet notamment d'itérer sur un tableau.
+
+En JS "moderne", il existe des boucles plus optimisées / lisibles selon les cas, mais "for" permettra toujours de s'en sortir
+
 ```javascript
 var cars = ['Renault','Nissan','Ford'];
 
 for (var i = 0; i < cars.length; i++) {
   console.log(cars[i]);
 }
+
+var productTags = ['Apple','Computer','Laptop','2021 Sales'];
+//Objectif : envoyer un tag d'event spécifique à GA si jamais l'article a un tag "2021 Sales"
+
+for (var i = 0; i < productTags.length; i++) {
+  if (productTags[i]==='2021 Sales'){
+	  //Envoyer un tag GA ici...
+  }
+}
+
 ```
 
 ## Partie 5 : Les objets 
 
+Problématique : je veux stocker les infos sur un client (nom, prénom, âge)
+
 ```javascript
-//Je veux stocker les infos sur un client?
+
+var customerFirstName = 'Jean',
+	customerLastName = 'Dupont',
+	customerAge = 25,
+	customerIsClient = true;
+//Un peu redondant, non?
 
 var customerArray = ['Dupont','Jean',25,true];
 //Pas pratique pour stocker des valeurs sans savoir de quoi il s'agit 😣
@@ -235,13 +256,7 @@ var customerObject = {
 	'age' : 25,
 	'is Client' : true
 }
-//Un "objet" est un ensemble de clés / valeurs, sans notion d'ordre (Dictionnary in Python). 
-
-typeof customerObject;
-//Rentoie "object" (ça nous fait une belle jambe)
-
-Array.isArray(customerObject)
-//Renvoie true. C'est la seule méthode pour vérifier qu'une variable est un objet
+//Un "objet" est un ensemble de clés / valeurs, sans notion d'ordre (Dictionnary en Python). 
 
 customerObject["first name"]
 //Pour aller récupérer une valeur d'une clé en particulier => Ici, renvoie "Jean"
@@ -261,7 +276,8 @@ var dataLayer = [{
 }];
 //Le data layer de GTM est un array d'objets
 
-//Comment parser un objet pour faire des trucs
+//Comment parser un objet pour faire des trucs?
+//For ne marche pas, car for n'est capable que de parser des "énumérables"
 for (var key in customerObject) {
   console.log('clé : '+key+'  value : '+ customerObject[key]);
 }
@@ -273,15 +289,15 @@ Exercice facile : ajouter la TVA (5%) à l'objet ci-dessous (nouvelle clé 'taxe
 var transaction = {
 	'id' : 6666666,
 	'amount' : 26,
-	'product' : 'MacBook Air 13\'\'' 
+	'product' : 'MacBook Air 13 pouces' 
 }
 ```
 
-Exercice difficile parser le data layer et le réécrire si une clé est incorrecte
+Exercice difficile : parser le data layer et le réécrire si une clé est incorrecte
 
 ## Partie 6 : les fonctions
 
-L'intérêt des fonctions : faire du code réutilisable sans se répéter (DRY : Don't Repeat Yourself)
+L'intérêt des fonctions : faire du code réutilisable sans se répéter (DRY : Don't Repeat Yourself est quasiment le principe de développement le plus important)
 
 ```javascript
 //Syntaxe basique d'une fonction (on parle aussi de méthode)
