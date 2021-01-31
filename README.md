@@ -154,6 +154,8 @@ Intermède : manipulation des URLs
 var myURL = window.location.href;
 //Un doute? Taper window.location. dans la console Chrome pour voir toutes les infos que l'on peut récupérer
 ```
+![Window loc](/window_location_search.png "Logo Title Text 1")
+
 
 ### Exercices partie 2
 
@@ -165,7 +167,7 @@ var price = '12'
 //Si on a un prix supérieur à 12 et le produit "shoes", on envoie le tag A, sinon on envoie le tag B
 ```
 
-Niveau difficile : même exercice, mais en plus, l'URI doit *contenir* "product"
+Niveau difficile : même exercice, mais en plus, l'URI doit **contenir** "product"
 
 ## Partie 3 : Les tableaux
 
@@ -199,8 +201,9 @@ var product = '111';
 console.log('variable dèv'+product);
 
 myArray.push('newElement')
+```
 
-Exercice : corriger 
+Exercice : corriger le script suivant
 
 ```javascript
 var myArray = ['Pierre','Paul]
@@ -224,7 +227,7 @@ for (var i = 0; i < cars.length; i++) {
 //Je veux stocker les infos sur un client?
 
 var customerArray = ['Dupont','Jean',25,true];
-//Pas pratique pour stocker des valeurs typées
+//Pas pratique pour stocker des valeurs sans savoir de quoi il s'agit 😣
 
 var customerObject = {
 	'last name' : 'Dupont',
@@ -232,46 +235,81 @@ var customerObject = {
 	'age' : 25,
 	'is Client' : true
 }
-//Un "objet" est un ensemble de clés / valeurs, sans notion d'ordre
+//Un "objet" est un ensemble de clés / valeurs, sans notion d'ordre (Dictionnary in Python). 
+
+typeof customerObject;
+//Rentoie "object" (ça nous fait une belle jambe)
 
 Array.isArray(customerObject)
-//Renvoie "false"
+//Renvoie true. C'est la seule méthode pour vérifier qu'une variable est un objet
 
 customerObject["first name"]
-//Renvoie "Jean"
+//Pour aller récupérer une valeur d'une clé en particulier => Ici, renvoie "Jean"
 
 customerObject['first name'] = 'Émilie';
-//Pour changer à la volée une valeur
+customerObject.age = 27;
+//Pour changer à la volée une valeur. Les 2 écritures sont équivalentes, mais préférer la méthode avec les crochets pour les clés qui comportent des espaces & cie
 
 customerObject['salary' : 3000];
-//Pour ajouter une paire clé / valeur
+//Pour ajouter une paire clé / valeur, autrement dit une nouvelle ligne, à notre objet
 
-//parser un objet
+var dataLayer = [{
+	'pageType' : 'editorial',
+	'pageID' : 123456789,
+	'loggedUser' : true,
+	'userID' : 32165498
+}];
+//Le data layer de GTM est un array d'objets
+
+//Comment parser un objet pour faire des trucs
 for (var key in customerObject) {
   console.log('clé : '+key+'  value : '+ customerObject[key]);
 }
 ```
 
-## Partie 6 : les fonctions
-
-L'intérêt des fonctions : faire du code réutilisable
+Exercice facile : ajouter la TVA (5%) à l'objet ci-dessous (nouvelle clé 'taxes')
 
 ```javascript
-//Syntaxe basique d'une fonction - Écriture
-function getRandom(){
-	console.log(Math.random());
+var transaction = {
+	'id' : 6666666,
+	'amount' : 26,
+	'product' : 'MacBook Air 13\'\'' 
 }
-//On parle aussi de méthode (équivalent)
+```
+
+Exercice difficile parser le data layer et le réécrire si une clé est incorrecte
+
+## Partie 6 : les fonctions
+
+L'intérêt des fonctions : faire du code réutilisable sans se répéter (DRY : Don't Repeat Yourself)
+
+```javascript
+//Syntaxe basique d'une fonction (on parle aussi de méthode)
+function getRandom(){
+	var randomNumber = Math.random();
+	return randomNumber;
+	//return => Valeur de retour, qui sera renvoyée lorsque la fonction sera exécutée
+}
 
 //Syntaxe basique d'une fonction - Invocation
 getRandom();
 
+var myRandomNumber = getRandom();
+//Affectation d'une variable via une fonction => D'où l'importance du "return" (renverrait undefined sinon)
+
 //Fonction avec un argument
 function getRandomUpToX(max){
 	//max => Argument de la fonction
-	console.log(Math.random()*max);
+	return Math.random()*max;
 }
+
+//On appelle ensuite la fonction avec un argument
+
 ```
+
+Exercice niveau facile : créer une méthode qui parse le data layer, et renvoie un boléen selon la présence d'un ID de transaction (transactionID)
+
+Exercice niveau difficile : 
 
 ## Partie 7 : Les dates
 
@@ -285,6 +323,8 @@ var date2 = new Date('December 17, 1995 03:24:00');
 
 typeof date2
 //Renvoie "object"
+
+//Mettre une date au format UTC
 ```
 
 Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ (prompt), et donne le nombre de jours depuis.
@@ -333,12 +373,12 @@ document.querySelector('#newsletter').addEventListener('click',pushNLEventToDL()
 
 ```javascript
 //Ecrire un cookie
-document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+document.cookie = "username=Pierre Dupont; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
 //Bon exercice pour chainer les conditions
 
 //Lire un cookie
 document.cookie
-//Renvoie une string
+//Renvoie une string qu'il faut ensuite parser
 
 // Enregistrer des données dans sessionStorage
 sessionStorage.setItem('idClient', '123456789');
