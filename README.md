@@ -320,7 +320,6 @@ function getRandomUpToX(max){
 }
 
 //On appelle ensuite la fonction avec un argument
-
 ```
 
 Exercice niveau facile : créer une méthode qui parse le data layer, et renvoie un boléen selon la présence d'un ID de transaction (transactionID)
@@ -344,6 +343,7 @@ typeof date2
 ```
 
 Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ (prompt), et donne le nombre de jours depuis.
+
 Bonus : vérifier l'intégrité de la date envoyée par l'utilisateur (le format doit être correct)
 
 ## Partie 8 : La manipulation du DOM et les events listeners
@@ -355,7 +355,9 @@ p /*=> Toutes les balises <p>*/
 .red /*=> Toutes les balises de classe 'red'*/
 #product-image /*=> Toutes les balises d'ID product-image*/
 ul .active /*=> Sélecteur descendant direct*/
+
 ul > .active /*=> Sélecteur descendant global*/
+	{color : 'blue';}
 ```
 
 ```javascript
@@ -363,10 +365,20 @@ var selector1 = document.querySelector('h1');
 
 var selector2 = document.querySelectorAll('h3');
 
-var selector3 = document.getElementById
+var selector3 = document.getElementById('header');
+
+// Récupérer des informations sur les éléments sélectionnés
+
+typeof selector2;
+
+selector2.length;
+
 ```
 
-Niveau 2 : modifier le DOM
+modifier le DOM
+
+C'est très important pour un "vrai" dèv front, mais pas tant que ça côté GTM
+
 
 Astuce : récupérer un sélecteur CSS depuis l'inspecteur Chrome
 
