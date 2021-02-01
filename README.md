@@ -154,9 +154,9 @@ Intermède : manipulation des URLs
 var myURL = window.location.href;
 //Un doute? Taper window.location. dans la console Chrome pour voir toutes les infos que l'on peut récupérer
 ```
-![Window loc](/window_location_search.png "Logo Title Text 1")
+![Window loc](https://github.com/aristideriou/js_training/blob/main/window_location_search.png "Logo Title Text 1")
 
-
+ 
 ### Exercices partie 2
 
 Niveau facile : compléter le script ci-dessous
@@ -245,7 +245,7 @@ var customerFirstName = 'Jean',
 	customerLastName = 'Dupont',
 	customerAge = 25,
 	customerIsClient = true;
-//Un peu redondant, non?
+//Un peu redondant, non? Beaucoup de variables redondantes, et sans lien entre elles.
 
 var customerArray = ['Dupont','Jean',25,true];
 //Pas pratique pour stocker des valeurs sans savoir de quoi il s'agit 😣
@@ -254,7 +254,7 @@ var customerObject = {
 	'last name' : 'Dupont',
 	'first name' : 'Jean',
 	'age' : 25,
-	'is Client' : true
+	'isClient' : true
 }
 //Un "objet" est un ensemble de clés / valeurs, sans notion d'ordre (Dictionnary en Python). 
 
@@ -263,7 +263,7 @@ customerObject["first name"]
 
 customerObject['first name'] = 'Émilie';
 customerObject.age = 27;
-//Pour changer à la volée une valeur. Les 2 écritures sont équivalentes, mais préférer la méthode avec les crochets pour les clés qui comportent des espaces & cie
+//Pour réécrite à la volée une valeur. Les 2 écritures sont équivalentes, mais préférer la méthode avec les crochets pour les clés qui comportent des espaces & cie
 
 customerObject['salary' : 3000];
 //Pour ajouter une paire clé / valeur, autrement dit une nouvelle ligne, à notre objet
@@ -279,11 +279,12 @@ var dataLayer = [{
 //Comment parser un objet pour faire des trucs?
 //For ne marche pas, car for n'est capable que de parser des "énumérables"
 for (var key in customerObject) {
+//On peut mettre 'key', 'cle', 'toto'... C'est une variable de boucle
   console.log('clé : '+key+'  value : '+ customerObject[key]);
 }
 ```
 
-Exercice facile : ajouter la TVA (5%) à l'objet ci-dessous (nouvelle clé 'taxes')
+Exercice facile : ajouter la TVA (5%) à l'objet ci-dessous (nouvelle clé 'taxes'), sur la base de la clé "amount" :
 
 ```javascript
 var transaction = {
@@ -297,7 +298,7 @@ Exercice difficile : parser le data layer et le réécrire si une clé est incor
 
 ## Partie 6 : les fonctions
 
-L'intérêt des fonctions : faire du code réutilisable sans se répéter (DRY : Don't Repeat Yourself est quasiment le principe de développement le plus important)
+L'intérêt des fonctions : faire du code réutilisable sans se répéter (DRY : Don't Repeat Yourself - est quasiment le principe de développement le plus important)
 
 ```javascript
 //Syntaxe basique d'une fonction (on parle aussi de méthode)
@@ -336,10 +337,9 @@ var unixTimestamp = Date.now();
 //Générer une date 
 var date2 = new Date('December 17, 1995 03:24:00');
 
-typeof date2
-//Renvoie "object"
-
 //Mettre une date au format UTC
+var myUTCDate = new Date(Date.UTC(96, 1, 2, 3, 4, 5));
+
 ```
 
 Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ (prompt), et donne le nombre de jours depuis.
@@ -361,24 +361,22 @@ ul > .active /*=> Sélecteur descendant global*/
 ```
 
 ```javascript
-var selector1 = document.querySelector('h1');
+var selector1 = document.querySelector('ul');
 
-var selector2 = document.querySelectorAll('h3');
+selector1.insertAdjacentHTML('beforeend', '<li>List item 4</li>');
+
+var selector2 = document.querySelectorAll('h2');
 
 var selector3 = document.getElementById('header');
 
-// Récupérer des informations sur les éléments sélectionnés
+selector3.style.display = 'none';
+//Faire disparaître
 
-typeof selector2;
-
-selector2.length;
-
+selector3.style.display = '';
+//Faire apparaître
 ```
 
-modifier le DOM
-
-C'est très important pour un "vrai" dèv front, mais pas tant que ça côté GTM
-
+Ces compétences sont cruciales pour un "vrai" dèv JS front, mais pas tant que ça côté GTM (on ne bougera pas le DOM).
 
 Astuce : récupérer un sélecteur CSS depuis l'inspecteur Chrome
 
@@ -394,7 +392,9 @@ function pushNLEventToDL (){
 }
 //On pense bien à tester la fonction "à blanc"
 
-document.querySelector('#newsletter').addEventListener('click',pushNLEventToDL());
+var myNewsletter = document.querySelector('#newsletter');
+
+myNewsletter.addEventListener('click',pushNLEventToDL());
 ```
 
 ## Partie 9 : Les cookies et le local storage
@@ -416,13 +416,13 @@ var monID = sessionStorage.getItem('idClient');
 
 // Supprimer des données de sessionStorage
 sessionStorage.removeItem('idClient');
-```
 
-Le local storage est plus moderne, mais pas compatible avec de vieux navigateurs, et sans possibilité de contrôler finement l'expiration, et le domaine
+// Le local / session storage est plus moderne, mais pas compatible avec de vieux navigateurs, et sans possibilité de contrôler finement l'expiration, et le domaine
+```
 
 Exercice niveau 1 : créer un cookie GA 'propre' (GA1.2.1232667359.1603816516) avec un random number, le timestamp courant, et une date d'expiration à 13 mois
 
-Exercice niveau 2 : faire une méthode qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen
+Exercice niveau 2 : créer une méthode "gaConsent" qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen
 
 ## Partie 10 : Le bilan
 
