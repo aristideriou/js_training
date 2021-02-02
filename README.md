@@ -2,37 +2,42 @@
 
 ## Introduction : le tooling
 
-Installer un bon éditeur de texte : [Sublime Text](https://www.sublimetext.com/) (simple et efficace), ou [VSCode](https://code.visualstudio.com/) (plus complexe, mais aussi très complet).
+Installer un bon éditeur de texte : [Sublime Text](https://www.sublimetext.com/) (simple et efficace), ou [VSCode](https://code.visualstudio.com/) (plus complexe, mais très customisable).
 
-Télécharger [l'archive avec le template de base](https://github.com/aristideriou/aristideriou.github.io/tree/master/js_demo_page) et le modifier tout au long de la formation.
+Télécharger l'archive avec le template de base (lien envoyé avant la formation) et le modifier tout au long de la formation.
 
-Travailler en local
+Votre setup durant la formation : 
+- Ce repo ouvert (cheat sheet)
+- Sublime
+- Page en local / débuggueur Chrome
+- Zoom
+(Double écran fortement conseillé)
 
-Vos 3 meilleurs amis : 
-- La console de Chrome pour débugger
-- La doc (W3Schools, MDN)
-- Les forums (StackOverflow)
+Vos meilleurs amis : 
+- La documentation (W3Schools, MDN)
+- Les forums (StackOverflow mais pas que)
 
 ## Partie 1 : Les variables
 
 ```javascript
 var myString = 'Hello world';
+console.log(myString);
 //Convention Javascript : le camelCase (1ère lettre en minuscule, tout attaché)
 //On peut utiliser des simple ou double quotes, l'important est d'être consistant
-//Toute instruction se finit par un point virgule
-console.log(myString);
+//Toute instruction JS se finit par un point virgule
 
 var myInteger = 12;
 
 var userValue = prompt('Saisir un nombre entre 1 et 10');
-//Technique rudimentaire pour créer un peu d'interaction
+//Technique rudimentaire pour créer un peu d'interaction et récupérer dans une variable une valeur saisie par l'utilisateur
 
 console.log('On ajoute 2 à notre Integer : ' + myInteger+2);
+//+ sert à la fois à concaténer des variables, et à incrémenter des integers
 
 var myFloat = 31.43;
 
 console.log('J\'ajoute la TVA' + myFloat*1.05)
-//On pense à échapper les quotes
+//On pense à échapper les quotes avec un backslash
 
 var myBoolean = true;
 
@@ -44,51 +49,71 @@ sur plusieurs lignes
 
 var priceError = '32';
 var myIntPrice = parseInt(priceError,10);
+//Attention : la méthode parseInt prend toujours en 2nd paramètre la "base"
 
 var priceError2 = '32.12' 
-var myFloatPrice = parseFloat(priceError2,10);
+var myFloatPrice = parseFloat(priceError2);
+//Un seul paramètre pour parseFloat
 
 var accuratePrice = 452.123485654;
 var myRoundedPrice = Math.round(accuratePrice);
 
-var priceToStringigy = 321;
-var stringifiedPrice = priceToStringigy.toString();
-
-//
+var priceToStringify = 321;
+var stringifiedPrice = priceToStringify.toString();
 ```
 
 ### Exercices partie 1
 
 Niveau facile : Déclarer une variable avec son nom, une avec son prénom, puis une troisième qui les concatène, en affichant un message "Bonjour Nom, Prénom!". Afficher cette dernière variable dans la console
 
+```javascript
+var userLastName = ;
+var userFirstName = ;
+//A compléter
+```
+
 Niveau difficile : Demander via un prompt l'âge de l'utilisateur en années, et afficher un message dans la console avec son âge (approximatif) en jours
+
+```javascript
+var userAge = ;//Demander l'âge de l'utilisateur
+var ageInDays
+
+console.log('vous avez...jours');//A compléter
+
+//A compléter
+```
 
 ## Partie 2 : Les conditions
 
 ```javascript
 var price = 14;
-
 if (price > 12) {
 	console.log('Envoyer un pixel de retargeting');
 	}
+//La condition dans le "if" doit être vérifiée. 
+//Autrement dit, elle doit être évaluée à "true"
 
 var country = 'France';
-
 if (price > 7 && country === 'France' ){
 // Les 2 conditions doivent être vérifiées
 	console.log('Envoyer le tag Criteo');	
 	}
 
 var country = 'Italy';
-
 if (country === 'France' || country === 'Italy' ){
+// Une seule des 2 conditions doit être vérifiée
 	console.log('Envoyer le pixel Facebook');
 }
+
+//Différence entre === et ==
+12 == '12' //renvoie 'true' => JS fait une conversion de type à la volée
+12 === '12' //renvoie 'false'
+//Dans la mesure du possible, utiliser la triple égalité, plus stricte, pour éviter les mauvaises surprises
 
 var control = true;
 
 if (control && price > 2){
-	//Les variables doivent être "truthy"
+	//Les variables doivent être "truthy", c'est à dire aucun des cas suivants :
 	//false
 	//undefined
 	//null
@@ -123,6 +148,7 @@ else {
 }
 //Equivalent à un ternaire =>
 price > 50 ? console.log('trop cher!') : console.log('pas assez cher!');
+//Attention : le ternaire est une technique synthétique, mais qui peut parfois ne pas être très lisible
 
 var product = 'chaussures';
 
@@ -167,21 +193,17 @@ var price = '12'
 //Si on a un prix supérieur à 12 et le produit "shoes", on envoie le tag A, sinon on envoie le tag B
 ```
 
-Niveau difficile : même exercice, mais en plus, l'URI doit **contenir** "product"
+Niveau difficile : même exercice, mais en plus, l'URI doit **contenir** "product" (vous allez devoir chercher un peu!)
 
 ## Partie 3 : Les tableaux
 
+Pour l'instant, on ne stocke que des infos disparates. On aimerait bien avoir des informations de façon un peu plus structurée
+
 ```javascript
-var myArray = ['kkjkj'],
+var myArray = ['this is an array item'],
 	myOtherArray = ['aaa','bbbb',1223,32.4,true];
 
-myArray.push(myOtherArray);
-
-typeof myOtherArray;
-//Renvoie 'object' => ça ne va pas tellement aider
-
-Array.isArray(myOtherArray);
-//Renvoie 'true'
+myArray.push('this is another item');
 
 myOtherArray.length;
 //Renvoie 5
@@ -192,48 +214,62 @@ myOtherArray[3]
 var joinedArray = myOtherArray.join('|');
 // 'true|32.4|1223|bbbb'
 
+typeof myOtherArray;
+//Renvoie 'object' => ça ne va pas tellement aider
+
+Array.isArray(myOtherArray);
+//Renvoie 'true'
+
 //Transformer une string en tableau
 var completeURL = document.location.href;
 
 var ArrayURL = completeURL.split('/');
 
 var product = '111';
-console.log('variable dèv'+product);
+console.log('variable dèv : '+product);
 
 myArray.push('newElement')
 ```
 
-Exercice : corriger le script suivant
+Exercice : dans l'array suivant, ajouter Jacques, uniquement si le 2ème élément est "Pierre" :
 
 ```javascript
 var myArray = ['Pierre','Paul]
 ```
 
-Exercice niveau difficile : extraire uniquement 
+Exercice niveau difficile : modifier le script précédent => Si le 2ème élément est 'Paul', retirer le 1er élément, puis ajouter Pierre (vous allez devoir chercher un peu!)
 
 ## Partie 4 : La boucle for
 
 C'est la boucle de base qui permet notamment d'itérer sur un tableau.
 
-En JS "moderne", il existe des boucles plus optimisées / lisibles selon les cas, mais "for" permettra toujours de s'en sortir
-
 ```javascript
 var cars = ['Renault','Nissan','Ford'];
 
 for (var i = 0; i < cars.length; i++) {
-  console.log(cars[i]);
+	console.log(cars[i]);
+}
+
+for (var i = 0; i < cars.length; i++) {
+	console.log(typeof cars[i]);
+	//Pour changer
 }
 
 var productTags = ['Apple','Computer','Laptop','2021 Sales'];
 //Objectif : envoyer un tag d'event spécifique à GA si jamais l'article a un tag "2021 Sales"
 
 for (var i = 0; i < productTags.length; i++) {
-  if (productTags[i]==='2021 Sales'){
-	  //Envoyer un tag GA ici...
+	if (productTags[i]==='2021 Sales'){
+		console.log('Envoyer le tag Bing Ads');
   }
 }
-
 ```
+
+En JS "moderne", il existe des boucles plus optimisées / lisibles selon les cas, mais "for" permettra toujours de s'en sortir
+
+Exercice niveau facile : TBC
+
+Exercice niveau difficile : TBC
 
 ## Partie 5 : Les objets 
 
@@ -245,8 +281,9 @@ var customerFirstName = 'Jean',
 	customerLastName = 'Dupont',
 	customerAge = 25,
 	customerIsClient = true;
-//Un peu redondant, non? Beaucoup de variables redondantes, et sans lien entre elles.
+//Un peu redondant, non? Beaucoup de variables similaires, sans lien entre elles.
 
+//Et si on essayait plutôt avec un tableau?
 var customerArray = ['Dupont','Jean',25,true];
 //Pas pratique pour stocker des valeurs sans savoir de quoi il s'agit 😣
 
@@ -278,6 +315,7 @@ var dataLayer = [{
 
 //Comment parser un objet pour faire des trucs?
 //For ne marche pas, car for n'est capable que de parser des "énumérables"
+
 for (var key in customerObject) {
 //On peut mettre 'key', 'cle', 'toto'... C'est une variable de boucle
   console.log('clé : '+key+'  value : '+ customerObject[key]);
@@ -310,6 +348,7 @@ function getRandom(){
 
 //Syntaxe basique d'une fonction - Invocation
 getRandom();
+//Ne pas oublier les parenthèses, pour l'instant vides
 
 var myRandomNumber = getRandom();
 //Affectation d'une variable via une fonction => D'où l'importance du "return" (renverrait undefined sinon)
@@ -321,18 +360,33 @@ function getRandomUpToX(max){
 }
 
 //On appelle ensuite la fonction avec un argument
+getRandomUpToX(21);
+
+var myRandom = getRandomUpToX(18);
+
 ```
 
-Exercice niveau facile : créer une méthode qui parse le data layer, et renvoie un boléen selon la présence d'un ID de transaction (transactionID)
+Exercice : créer une méthode qui parse le data layer, et renvoie un boléen selon la présence d'un ID de transaction (transactionID)
 
-Exercice niveau difficile : 
+```javascript
+var dataLayer = [{
+	'pageType' : 'ecommerce',
+	'productID' : 321654,
+	'transactionID' : 123456
+}];
+
+function hasTransaction(){
+	//A compléter
+	return xxxx;
+}
+```
 
 ## Partie 7 : Les dates
 
 ```javascript
 //Générer un timestamp
 var unixTimestamp = Date.now();
-//Nombre de millisecondes écoulées depuis le 1er janvier 1970
+//Nombre de millisecondes écoulées depuis le 1er janvier 1970. C'est la méthode universelle, dans à peu près n'importe quel language, pour récupérer une date
 
 //Générer une date 
 var date2 = new Date('December 17, 1995 03:24:00');
@@ -344,7 +398,14 @@ var myUTCDate = new Date(Date.UTC(96, 1, 2, 3, 4, 5));
 
 Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ (prompt), et donne le nombre de jours depuis.
 
-Bonus : vérifier l'intégrité de la date envoyée par l'utilisateur (le format doit être correct)
+```javascript
+function daysSinceBirthDate(){
+	//A compléter
+	return 6593;
+}
+```
+
+Bonus : vérifier l'intégrité de la date envoyée par l'utilisateur (le format doit être correct) => Chercher du côté des Regex!
 
 ## Partie 8 : La manipulation du DOM et les events listeners
 
@@ -422,8 +483,17 @@ sessionStorage.removeItem('idClient');
 
 Exercice niveau 1 : créer un cookie GA 'propre' (GA1.2.1232667359.1603816516) avec un random number, le timestamp courant, et une date d'expiration à 13 mois
 
-Exercice niveau 2 : créer une méthode "gaConsent" qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen
+Exercice niveau 2 : créer une méthode "gaConsent" qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen, en renvoyant 
 
-## Partie 10 : Le bilan
+```javascript
+function gaConsent(bol){
 
-A comprendre avant de passer sur GTM
+}
+```
+
+## Partie 10 : avant de passer sur GTM
+
+Dans GTM, dés qu'on peut s'abstraire du JS, on le fait, mais :
+- Il faut bien comprendre ce qu'il y a derrière les choses "templatisées"
+- Il faut tout de même souvent faire du JS "sans filet", autant bien le faire
+- Certains concepts de dèv (DRY, branches...) doivent être appliqués, même sans faire de JS à proprement parler
