@@ -10,10 +10,13 @@ Votre setup durant la formation :
 - Ce repo ouvert (cheat sheet)
 - Sublime
 - Page en local / débuggueur Chrome
-- Zoom
+- Zoom avec mon partage d'écran
 (Double écran fortement conseillé)
 
+Le rythme de la formation : alternance entre des phases de démo / tuto, et des exercices. Chaque partie comporte un exercice facile, que vous devez absolument comprendre, et un exercice difficile, qui vous pousse en général à chercher au delà du tuto
+
 Vos meilleurs amis : 
+- Google, déjà
 - La documentation (W3Schools, MDN)
 - Les forums (StackOverflow mais pas que)
 
@@ -75,10 +78,9 @@ var userFirstName = ;
 Niveau difficile : Demander via un prompt l'âge de l'utilisateur en années, et afficher un message dans la console avec son âge (approximatif) en jours
 
 ```javascript
-var userAge = ;//Demander l'âge de l'utilisateur
-var ageInDays
-
-console.log('vous avez...jours');//A compléter
+var userAge = ;//Rentrer l'âge de l'utilisateur dans cette variable en lui demandant via un "prompt"
+var ageInDays = ;//Compléter cette variable pour avoir l'âge en jours
+console.log('vous avez...jours');//A compléter pour afficher dynamiquement l'âge
 
 //A compléter
 ```
@@ -200,7 +202,7 @@ Niveau difficile : même exercice, mais en plus, l'URI doit **contenir** "produc
 Pour l'instant, on ne stocke que des infos disparates. On aimerait bien avoir des informations de façon un peu plus structurée
 
 ```javascript
-var myArray = ['this is an array item'],
+var mySites = ['google.com','bing.com','yandex.ru'],
 	myOtherArray = ['aaa','bbbb',1223,32.4,true];
 
 myArray.push('this is another item');
@@ -229,6 +231,16 @@ var product = '111';
 console.log('variable dèv : '+product);
 
 myArray.push('newElement')
+```
+
+Apparté : les Regex
+
+```javascript
+var myURL = 'www.monsupersite.fr';
+var regex = '(www)\.(.+)\.(fr|com)';
+
+myURL.match(regex);
+//Renvoie true ou false si la string matche la regex
 ```
 
 Exercice : dans l'array suivant, ajouter Jacques, uniquement si le 2ème élément est "Pierre" :
@@ -366,7 +378,7 @@ var myRandom = getRandomUpToX(18);
 
 ```
 
-Exercice : créer une méthode qui parse le data layer, et renvoie un boléen selon la présence d'un ID de transaction (transactionID)
+Exercice : créer une méthode qui parse le data layer suivant, et renvoie un boléen selon la présence d'un ID de transaction (transactionID)
 
 ```javascript
 var dataLayer = [{
@@ -386,14 +398,19 @@ function hasTransaction(){
 ```javascript
 //Générer un timestamp
 var unixTimestamp = Date.now();
-//Nombre de millisecondes écoulées depuis le 1er janvier 1970. C'est la méthode universelle, dans à peu près n'importe quel language, pour récupérer une date
+//Nombre de millisecondes écoulées depuis le 1er janvier 1970. 
+//C'est la méthode universelle, dans à peu près n'importe quel language, pour récupérer une date
 
-//Générer une date 
+//Générer une date "explicite"
 var date2 = new Date('December 17, 1995 03:24:00');
 
-//Mettre une date au format UTC
-var myUTCDate = new Date(Date.UTC(96, 1, 2, 3, 4, 5));
+//Récupérer le mois, jour, etc...courant
+date2.getDate();
+date2.getMonth(); //Attention, janvier = 0, donc décembre = 11
+date2.getYear();
 
+//Mettre une date au format UTC à partir d'un jour, mois, etc...
+var myUTCDate = new Date(Date.UTC(96, 1, 2, 3, 4, 5));
 ```
 
 Exercice : créer une fonction qui prend en input une date de naissance au format AAAA-MM-JJ (prompt), et donne le nombre de jours depuis.
@@ -439,7 +456,13 @@ selector3.style.display = '';
 
 Ces compétences sont cruciales pour un "vrai" dèv JS front, mais pas tant que ça côté GTM (on ne bougera pas le DOM).
 
+A partir du moment où on comprend comment fonctionne un sélecteur CSS, GTM gère très correctement l'abstraction
+
 Astuce : récupérer un sélecteur CSS depuis l'inspecteur Chrome
+
+### Point déterminant : les events listeners
+
+Tout JS (y compris GTM) fonctionne sur la base d'event listeners. Même si on n'en fera pas souvent de façon directe dans GTM, il est crucial de comprendre le principe
 
 ```javascript
 //On travaille à l'envers : on commence par créer la fonction que l'on va "attacher" à l'événement
@@ -454,41 +477,47 @@ function pushNLEventToDL (){
 //On pense bien à tester la fonction "à blanc"
 
 var myNewsletter = document.querySelector('#newsletter');
+//équivalent var myNewsletter = document.getElementByID('newsletter');
 
 myNewsletter.addEventListener('click',pushNLEventToDL());
 ```
+
+Exercice difficile : améliorer la méthode pushNLEventToDL en passant une autre clé "buttonText" qui renvoie dynamiquement le texte de la div cliquée
 
 ## Partie 9 : Les cookies et le local storage
 
 ```javascript
 //Ecrire un cookie
-document.cookie = "username=Pierre Dupont; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+document.cookie = 'username=PierreDupont; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/';
+//Il faut tout passer sous forme d'une string. Pas simple!
 //Bon exercice pour chainer les conditions
 
 //Lire un cookie
-document.cookie
-//Renvoie une string qu'il faut ensuite parser
+var allCookies = document.cookie;
+//Renvoie une string qu'il faut ensuite parser ==> Bon exercice pour travailler les boucles 😀
 
 // Enregistrer des données dans sessionStorage
-sessionStorage.setItem('idClient', '123456789');
+localStorage.setItem('idClient', '123456789');
 
 // Récupérer des données depuis sessionStorage
-var monID = sessionStorage.getItem('idClient');
+var monID = localStorage.getItem('idClient');
 
 // Supprimer des données de sessionStorage
-sessionStorage.removeItem('idClient');
+localStorage.removeItem('idClient');
 
 // Le local / session storage est plus moderne, mais pas compatible avec de vieux navigateurs, et sans possibilité de contrôler finement l'expiration, et le domaine
 ```
 
-Exercice niveau 1 : créer un cookie GA 'propre' (GA1.2.1232667359.1603816516) avec un random number, le timestamp courant, et une date d'expiration à 13 mois
+Exercice niveau 1 : créer un cookie GA 'propre' (GA1.2.1232667359.1603816516) avec un random number, le timestamp courant, et une date d'expiration à 13 mois à partir du moment où il est créé.
 
-Exercice niveau 2 : créer une méthode "gaConsent" qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen, en renvoyant 
+Exercice niveau 2 : créer une méthode "gaConsent" qui prend un booléen en entrée, et fait une expiration à 12 ou 24 mois selon ce que renvoie ce booléen, en renvoyant une string utilisable pour pouvoir créer un cookie
 
 ```javascript
 function gaConsent(bol){
-
+//A vous de jouer!
 }
+
+//On doit pouvoir faire du document.cookie = gaConsent(false)
 ```
 
 ## Partie 10 : avant de passer sur GTM
